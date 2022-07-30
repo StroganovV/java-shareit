@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -57,6 +58,6 @@ public class ItemController {
         if (text == null || text.isBlank()) {
             return new ArrayList<>();
         }
-        return itemServiceImpl.search(text.toLowerCase(Locale.ROOT)).stream().map(ItemMapper::toItemDto).toList();
+        return itemServiceImpl.search(text.toLowerCase(Locale.ROOT)).stream().map(ItemMapper::toItemDto).collect(Collectors.toList());
     }
 }
