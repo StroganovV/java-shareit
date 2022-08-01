@@ -1,7 +1,6 @@
 package ru.yandex.practicum.ShareIt.user;
 
 import lombok.Data;
-import lombok.NonNull;
 
 import javax.validation.constraints.Email;
 
@@ -9,7 +8,6 @@ import javax.validation.constraints.Email;
 public class UserDto {
     private Long id;
     private String name;
-    @NonNull
     @Email
     private String email;
 

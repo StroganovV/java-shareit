@@ -17,6 +17,12 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
+    public ResponseEntity<?> handleIncorrectItemCreate(final IncorrectItemException e) {
+        log.warn(e.getMessage());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<?> handleDuplicatedEmail(final DuplicateEmailException e) {
         log.warn(e.getMessage());
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);

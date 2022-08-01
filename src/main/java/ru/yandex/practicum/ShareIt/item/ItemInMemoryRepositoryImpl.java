@@ -3,12 +3,13 @@ package ru.yandex.practicum.ShareIt.item;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.ShareIt.exceptions.NotOwnerException;
 import ru.yandex.practicum.ShareIt.user.UserInMemoryRepositoryImpl;
+import ru.yandex.practicum.ShareIt.user.UserRepository;
 
 import java.util.*;
 
 @Component
 public class ItemInMemoryRepositoryImpl implements ItemRepository {
-    final UserInMemoryRepositoryImpl userStorage;
+    final UserRepository userStorage;
     Map<Long, Map<Long, Item>> items = new HashMap<>();
     Map<Long, Item> allItems = new HashMap<>();
     Long id = 0L;

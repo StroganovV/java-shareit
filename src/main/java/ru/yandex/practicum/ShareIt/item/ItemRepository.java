@@ -1,6 +1,7 @@
 package ru.yandex.practicum.ShareIt.item;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface ItemRepository {
     Item create(long userId, Item item);
@@ -11,7 +12,7 @@ public interface ItemRepository {
 
     void delete(long userId, long itemId);
 
-    Collection<Item> getAllUsersItems(long userId);
+    List<Item> getAllUsersItems(long userId);
 
     Collection<Item> getAll();
 }

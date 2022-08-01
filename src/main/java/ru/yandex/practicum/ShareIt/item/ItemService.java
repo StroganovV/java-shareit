@@ -1,6 +1,5 @@
 package ru.yandex.practicum.ShareIt.item;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface ItemService {
@@ -13,7 +12,7 @@ public interface ItemService {
 
     void delete(long userId, long itemId);
 
-    Collection<Item> getAllUsersItems(long userId);
+    List<Item> getAllUsersItems(long userId);
 
     List<Item> search(String text);
 }

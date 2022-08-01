@@ -1,8 +1,8 @@
 package ru.yandex.practicum.ShareIt.item;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.ShareIt.exceptions.IncorrectItemException;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -10,23 +10,30 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-@Slf4j
 @RestController
 @RequestMapping("/items")
 @AllArgsConstructor
 public class ItemController {
-    ItemServiceImpl itemServiceImpl;
+    ItemService itemServiceImpl;
 
     @PostMapping
     public ItemDto create(@RequestHeader("X-Sharer-User-Id") long userId,
                           @Valid @RequestBody ItemDto itemDto) {
+        if (itemDto.getName() == null || itemDto.getName().isBlank() || itemDto.getDescription() == null || itemDto.getDescription().isBlank()) {
+            throw new IncorrectItemException("Имя или описание заполнены неправильно");
+        }
+
+        if (itemDto.getAvailable() == null) {
+            throw new IncorrectItemException("Не заполнено поле доступности вещи");
+        }
         return ItemMapper.toItemDto(itemServiceImpl.create(userId, ItemMapper.toItem(itemDto)));
     }
 
     @PatchMapping("/{itemId}")
     public ItemDto update(@RequestHeader("X-Sharer-User-Id") long userId,
-                          @RequestBody Item item,
+                          @RequestBody ItemDto itemDto,
                           @PathVariable long itemId) {
+        Item item = ItemMapper.toItem(itemDto);
         return ItemMapper.toItemDto(itemServiceImpl.update(userId, itemId, item));
     }
 

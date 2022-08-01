@@ -10,7 +10,7 @@ import java.util.Locale;
 @Service
 @AllArgsConstructor
 public class ItemServiceImpl implements ItemService {
-    ItemInMemoryRepositoryImpl itemInMemoryRepositoryImpl;
+    ItemRepository itemInMemoryRepositoryImpl;
 
     @Override
     public Item create(long userId, Item item) {

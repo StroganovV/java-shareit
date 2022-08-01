@@ -1,7 +1,6 @@
 package ru.yandex.practicum.ShareIt.user;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.ShareIt.exceptions.IncorrectUserException;
 
@@ -11,7 +10,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
-@Slf4j
 @AllArgsConstructor
 public class UserController {
     UserService userService;
@@ -29,17 +27,17 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}")
-    public UserDto update(@RequestBody User user,
+    public UserDto update(@RequestBody UserDto userDto,
                           @PathVariable long userId) {
-        return UserMapper.toUserDto(userService.update(user, userId));
+        return UserMapper.toUserDto(userService.update(UserMapper.toUser(userDto), userId));
     }
 
     @PostMapping
-    public UserDto create(@Valid @RequestBody User user) {
-        if (user.getEmail() == null || user.getName() == null) {
+    public UserDto create(@Valid @RequestBody UserDto userDto) {
+        if (userDto.getEmail() == null || userDto.getName() == null) {
             throw new IncorrectUserException("Некорректно заполно имя или email");
         }
-        return UserMapper.toUserDto(userService.create(user));
+        return UserMapper.toUserDto(userService.create(UserMapper.toUser(userDto)));
     }
 
     @DeleteMapping("/{userId}")
