@@ -64,7 +64,7 @@ public class BookingController {
                                                           @RequestParam(name = "state", defaultValue = "ALL") String stateParam) {
         BookingState state = BookingState.from(stateParam)
                 .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
-        log.info("Get booking with state {}, userId={}, from={}, size={}", size, userId, from, size);
+        log.info("Get booking with state {}, userId={}, from={}, size={}", state, userId, from, size);
         return bookingClient.getAllWhereOwnerItems(userId, state, from, size);
     }
 
